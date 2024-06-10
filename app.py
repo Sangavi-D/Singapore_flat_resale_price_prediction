@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+import gzip
 
 st.title("Singapore Flat Resale Price Prediction")
 
@@ -85,7 +86,7 @@ with open('scaler_features.pkl', 'rb') as f:
 with open('scaler_target.pkl', 'rb') as f:
   scaler_target = pickle.load(f)
 
-with open("decision_tree_model.pkl", "rb") as f:
+with gzip.open("dtm.pkl.gz", "rb") as f:
   model = pickle.load(f)
 
 # Preprocess new data (similar to the training process)
@@ -110,4 +111,5 @@ resale_price = np.exp(predicted_price_original_scale)
 # st.button("PREDICT RESALE PRICE",type="primary")
 if st.button("PREDICT RESALE PRICE",type="primary"):
     st.write("**Predicted resale price: {:.2f}**".format(resale_price[0, 0]))
+
 
